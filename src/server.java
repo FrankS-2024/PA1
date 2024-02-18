@@ -7,7 +7,7 @@ public class server {
 
         try {
             serverSocket = new ServerSocket(5618);
-            System.out.println("Server listening on port 12345");
+            System.out.println("Server listening on port 5618");
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -44,11 +44,13 @@ public class server {
                         int jokeNumber = Integer.parseInt(command.split(" ")[1]);
                         String jokeFile = "joke" + jokeNumber + ".txt";
 
-                        try (BufferedReader fileReader = new BufferedReader(new FileReader(jokeFile))) {
-                            String jokeContent = fileReader.lines().reduce("", String::concat);
-                            out.println(jokeContent);
+                        if((jokeNumber == 1 || jokeNumber == 2 || jokeNumber == 3)){
+                            out.println(jokeFile);
                         }
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException | FileNotFoundException e) {
+                        else {
+                            out.println("Error: Invalid Joke Number");
+                        }
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                         out.println("Error: Invalid Joke Number");
                     }
                 } else if (command.equals("bye")) {
