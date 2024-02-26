@@ -20,12 +20,6 @@ public class client {
                 String command = userInput.readLine();
                 out.println(command);
 
-//               if (command.equals("bye")) {
-////                  String response = in.readLine();
-////                   System.out.println("response");
-////                   break;
-//               }
-
                 String response = in.readLine();
 
                 if (response.equals("disconnected")) {
@@ -37,9 +31,10 @@ public class client {
                 } else {
                     int jokeNumber = Integer.parseInt(command.split(" ")[1]);
                     String jokeFile = "joke" + jokeNumber + ".txt";
-
                     try (PrintWriter fileWriter = new PrintWriter(new FileWriter(jokeFile))) {
-                        fileWriter.println(response);
+                        if((jokeNumber == 1 || jokeNumber == 2 || jokeNumber == 3)){
+                            fileWriter.println(response);
+                        }
                         System.out.println("Joke saved to " + jokeFile);
                     }
                 }

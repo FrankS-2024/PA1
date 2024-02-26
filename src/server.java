@@ -42,10 +42,10 @@ public class server {
                 if (command.startsWith("Joke")) {
                     try {
                         int jokeNumber = Integer.parseInt(command.split(" ")[1]);
-                        String jokeFile = "joke" + jokeNumber + ".txt";
+                        //String jokeFile = "joke" + jokeNumber + ".txt";
 
                         if((jokeNumber == 1 || jokeNumber == 2 || jokeNumber == 3)){
-                            out.println(jokeFile);
+                            out.println(getJoke(jokeNumber));
                         }
                         else {
                             out.println("Error: Invalid Joke Number");
@@ -64,4 +64,13 @@ public class server {
             e.printStackTrace();
         }
     }
+    public static String getJoke(int jokeNum) {
+        return switch (jokeNum) {
+            case 1 -> "Why did the scarecrow win an award? Because he was outstanding in his field!";
+            case 2 -> "I told my wife she was drawing her eyebrows too high. She looked surprised.";
+            case 3 -> "Why don't scientists trust atoms? Because they make up everything!";
+            default -> "Sorry, I only have three jokes. Please choose a number between 1 and 3.";
+        };
+    }
+
 }
