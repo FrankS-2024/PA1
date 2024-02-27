@@ -18,6 +18,12 @@ public class client {
                 BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
                 System.out.print("Enter command: ");
                 String command = userInput.readLine();
+
+                if (command == null || command.isEmpty()) {
+                    System.out.println("Error: Invalid Command");
+                    continue;
+                }
+
                 out.println(command);
 
                 String response = in.readLine();
@@ -31,12 +37,15 @@ public class client {
                 } else {
                     int jokeNumber = Integer.parseInt(command.split(" ")[1]);
                     String jokeFile = "joke" + jokeNumber + ".txt";
-                    try (PrintWriter fileWriter = new PrintWriter(new FileWriter(jokeFile))) {
-                        if((jokeNumber == 1 || jokeNumber == 2 || jokeNumber == 3)){
-                            fileWriter.println(response);
+                    try (PrintWriter fileWriter = new PrintWriter(new FileWriter(jokeFile), true)) {
+                        fileWriter.println(response);
+                        // Read the remaining lines and append to the file
+                        String line;
+                        while (!(line = in.readLine()).equals("EOF")) {
+                            fileWriter.println(line);
                         }
-                        System.out.println("Joke saved to " + jokeFile);
                     }
+                    System.out.println("Joke saved to " + jokeFile);
                 }
             }
         } catch (IOException e) {
